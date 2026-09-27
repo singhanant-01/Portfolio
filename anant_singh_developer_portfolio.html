@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anant Singh | Full Stack & Backend Developer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        cyanGlow: '#06b6d4',
+                        emeraldGlow: '#10b981',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <!-- Google Font Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f19;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .glass-card-hover:hover {
+            transform: translateY(-4px);
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 12px 30px -10px rgba(99, 102, 241, 0.25);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-border {
+            position: relative;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(129, 140, 248, 0.2));
+            padding: 1px;
+        }
+
+        .gradient-border > div {
+            background: #0f172a;
+            border-radius: calc(1rem - 1px);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+
+        /* Code block style */
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+    </style>
+</head>
+<body class="selection:bg-indigo-500 selection:text-white">
+
+    <!-- Interactive Background Canvas -->
+    <canvas id="bg-canvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-40"></canvas>
+
+    <!-- Header / Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-4 px-6 md:px-12 glass-card border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="#hero" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="w-8 h-8 rounded-lg bg-indigo-600/30 border border-indigo-500/50 flex items-center justify-center text-indigo-400 font-mono text-sm">&lt;A/&gt;</span>
+                <span class="gradient-text font-extrabold">Anant Singh</span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                <a href="#about" class="hover:text-indigo-400 transition-colors">About</a>
+                <a href="#skills" class="hover:text-indigo-400 transition-colors">Skills</a>
+                <a href="#experience" class="hover:text-indigo-400 transition-colors">Experience</a>
+                <a href="#projects" class="hover:text-indigo-400 transition-colors">Projects</a>
+                <a href="#education" class="hover:text-indigo-400 transition-colors">Education</a>
+                <a href="#contact" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition-all shadow-lg shadow-indigo-600/30">Get In Touch</a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="menu-toggle" class="md:hidden text-slate-300 hover:text-white focus:outline-none p-2" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4 pt-4 border-t border-slate-800/80 flex flex-col gap-4 text-slate-300">
+            <a href="#about" class="mobile-link hover:text-indigo-400 py-1 transition-colors">About</a>
+            <a href="#skills" class="mobile-link hover:text-indigo-400 py-1 transition-colors">Skills</a>
+            <a href="#experience" class="mobile-link hover:text-indigo-400 py-1 transition-colors">Experience</a>
+            <a href="#projects" class="mobile-link hover:text-indigo-400 py-1 transition-colors">Projects</a>
+            <a href="#education" class="mobile-link hover:text-indigo-400 py-1 transition-colors">Education</a>
+            <a href="#contact" class="mobile-link px-4 py-2 text-center rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition-all">Get In Touch</a>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="relative z-10 pt-24">
+
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-[90vh] flex items-center justify-center px-6 md:px-12 py-12">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-7 flex flex-col items-start space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-950/60 border border-indigo-500/30 text-indigo-300 text-xs md:text-sm font-medium">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        Available for Software Engineering Roles
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                        Hi, I'm <span class="gradient-text">Anant Singh</span>
+                    </h1>
+
+                    <div class="text-xl sm:text-2xl font-mono text-slate-300 h-10 flex items-center">
+                        <span>I build&nbsp;</span>
+                        <span id="typewriter" class="text-indigo-400 font-semibold"></span>
+                        <span class="animate-ping text-indigo-400">|</span>
+                    </div>
+
+                    <p class="text-slate-400 text-base md:text-lg leading-relaxed max-w-2xl">
+                        Computer Science undergraduate passionate about building scalable backend systems, mobile applications, and high-performance server logic using Java, Spring Boot, Python & Django.
+                    </p>
+
+                    <!-- Quick Links & Actions -->
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <a href="#contact" class="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white font-semibold shadow-lg shadow-indigo-500/25 transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Contact Me
+                        </a>
+                        <a href="https://www.linkedin.com/in/anant-singh-780864388/" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-xl glass-card hover:bg-slate-800/80 text-slate-200 font-semibold border border-slate-700/60 transition-all flex items-center gap-2">
+                            <i class="fa-brands fa-linkedin text-indigo-400 text-lg"></i> LinkedIn
+                        </a>
+                        <a href="mailto:priyanshu638875@gmail.com" class="px-6 py-3 rounded-xl glass-card hover:bg-slate-800/80 text-slate-200 font-semibold border border-slate-700/60 transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-envelope text-cyan-400 text-lg"></i> Email
+                        </a>
+                    </div>
+
+                    <!-- Direct Quick Info Badge -->
+                    <div class="flex flex-wrap items-center gap-6 pt-4 text-xs md:text-sm text-slate-400">
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-phone text-indigo-400"></i> +91 6388756316</span>
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-indigo-400"></i> Uttar Pradesh, India</span>
+                    </div>
+                </div>
+
+                <!-- Interactive Code Display/Card -->
+                <div class="lg:col-span-5 w-full">
+                    <div class="gradient-border shadow-2xl">
+                        <div class="p-6 rounded-2xl code-font text-xs md:text-sm text-slate-300 space-y-3 overflow-x-auto">
+                            <!-- Window header style -->
+                            <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-slate-500 font-sans">
+                                <div class="flex gap-2">
+                                    <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                                    <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+                                    <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+                                </div>
+                                <span class="text-xs text-slate-400">DeveloperProfile.java</span>
+                            </div>
+
+                            <p><span class="text-purple-400">public class</span> <span class="text-yellow-300">AnantSingh</span> <span class="text-purple-400">implements</span> <span class="text-cyan-300">Developer</span> {</p>
+                            
+                            <div class="pl-4 space-y-1">
+                                <p><span class="text-slate-500">// Personal Specs</span></p>
+                                <p><span class="text-purple-400">private String</span> role = <span class="text-emerald-300">"Backend & Full Stack Engineer"</span>;</p>
+                                <p><span class="text-purple-400">private String[]</span> stack = {<span class="text-emerald-300">"Java"</span>, <span class="text-emerald-300">"Spring Boot"</span>, <span class="text-emerald-300">"Python"</span>, <span class="text-emerald-300">"Django"</span>, <span class="text-emerald-300">"MySQL"</span>};</p>
+                                <p><span class="text-purple-400">private double</span> currentCGPA = <span class="text-orange-300">7.92</span>;</p>
+                            </div>
+
+                            <div class="pl-4 pt-2">
+                                <p><span class="text-purple-400">public void</span> <span class="text-blue-400">getCoreFocus</span>() {</p>
+                                <p class="pl-4 text-slate-400">System.out.println(<span class="text-emerald-300">"Architecting clean, scalable backend REST APIs & Android apps"</span>);</p>
+                                <p>}</p>
+                            </div>
+
+                            <p>}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 px-6 md:px-12 max-w-7xl mx-auto">
+            <div class="flex flex-col items-center text-center mb-12">
+                <span class="text-indigo-400 font-mono text-sm tracking-widest uppercase mb-2">// Introduction</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white">About Me</h2>
+                <div class="w-16 h-1 bg-indigo-500 rounded-full mt-3"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Bio card -->
+                <div class="md:col-span-2 glass-card p-8 rounded-2xl glass-card-hover flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white mb-4">Driven by Problem Solving & Clean Code</h3>
+                        <p class="text-slate-300 leading-relaxed mb-4">
+                            I am a Computer Science and Engineering student at the <strong class="text-indigo-300">Institute of Technology and Management, Gorakhpur</strong> (2023–2027). My primary software focus lies in backend development, systems engineering, and mobile app creation.
+                        </p>
+                        <p class="text-slate-300 leading-relaxed">
+                            Through hands-on internships in Android Development and Web Development, I have gained real-world exposure to designing user interfaces, handling application logic, and integrating relational databases like MySQL.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-6 border-t border-slate-800 mt-6">
+                        <div>
+                            <span class="block text-2xl font-extrabold text-indigo-400">2027</span>
+                            <span class="text-xs text-slate-400">Graduation Year</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl font-extrabold text-cyan-400">7.92</span>
+                            <span class="text-xs text-slate-400">Current CGPA</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl font-extrabold text-emerald-400">2+</span>
+                            <span class="text-xs text-slate-400">Internship Roles</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick highlights side card -->
+                <div class="glass-card p-8 rounded-2xl glass-card-hover flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                            <i class="fa-solid fa-bullseye text-indigo-400"></i> Core Focus Area
+                        </h3>
+                        
+                        <ul class="space-y-4 text-sm text-slate-300">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-indigo-400 mt-1"></i>
+                                <span><strong>Backend Engineering:</strong> Building enterprise applications with Spring Boot & Django.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-indigo-400 mt-1"></i>
+                                <span><strong>Database Design:</strong> Relational structure with MySQL.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-indigo-400 mt-1"></i>
+                                <span><strong>Mobile Apps:</strong> Native Android development with Java & Android Studio.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="pt-6 border-t border-slate-800 mt-6">
+                        <a href="tel:6388756316" class="w-full py-2.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-center block text-slate-200 text-sm font-semibold transition-colors">
+                            <i class="fa-solid fa-phone text-indigo-400 mr-2"></i> Call Directly
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 px-6 md:px-12 max-w-7xl mx-auto">
+            <div class="flex flex-col items-center text-center mb-12">
+                <span class="text-indigo-400 font-mono text-sm tracking-widest uppercase mb-2">// Capabilities</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white">Technical Stack</h2>
+                <div class="w-16 h-1 bg-indigo-500 rounded-full mt-3"></div>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex justify-center gap-3 mb-10 flex-wrap" id="skill-filters">
+                <button data-filter="all" class="skill-filter-btn px-5 py-2 rounded-full text-sm font-semibold bg-indigo-600 text-white transition-all shadow-md">All Tech</button>
+                <button data-filter="languages" class="skill-filter-btn px-5 py-2 rounded-full text-sm font-semibold glass-card text-slate-300 hover:text-white transition-all">Languages</button>
+                <button data-filter="frameworks" class="skill-filter-btn px-5 py-2 rounded-full text-sm font-semibold glass-card text-slate-300 hover:text-white transition-all">Frameworks</button>
+                <button data-filter="database" class="skill-filter-btn px-5 py-2 rounded-full text-sm font-semibold glass-card text-slate-300 hover:text-white transition-all">Database</button>
+                <button data-filter="tools" class="skill-filter-btn px-5 py-2 rounded-full text-sm font-semibold glass-card text-slate-300 hover:text-white transition-all">Tools & IDEs</button>
+            </div>
+
+            <!-- Skills Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="skills-container">
+                
+                <!-- Skill: Java -->
+                <div class="skill-item glass-card p-6 rounded-2xl glass-card-hover" data-category="languages">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-400 text-2xl">
+                            <i class="fa-brands fa-java"></i>
+                        </div>
+                        <span class="text-xs font-mono text-slate-400">Language</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Java</h3>
+                    <p class="text-xs text-slate-400 mb-4">Core OOP, Multi-threading, Data Structures & Android</p>
+                    <div class="w-full bg-slate-800 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-orange-500 to-amber-400 h-2 rounded-full w-[85%]"></div>
+                    </div>
+                </div>
+
+                <!-- Skill: Python -->
+                <div class="skill-item glass-card p-6 rounded-2xl glass-card-hover" data-category="languages">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 text-2xl">
+                            <i class="fa-brands fa-python"></i>
+                        </div>
+                        <span class="text-xs font-mono text-slate-400">Language</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Python</h3>
+                    <p class="text-xs text-slate-400 mb-4">Scripting, Web Services, Backend Development</p>
+                    <div class="w-full bg-slate-800 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-blue-500 to-cyan-400 h-2 rounded-full w-[80%]"></div>
+                    </div>
+                </div>
+
+                <!-- Skill: Spring Boot -->
+                <div class="skill-item glass-card p-6 rounded-2xl glass-card-hover" data-category="frameworks">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <span class="text-xs font-mono text-slate-400">Framework</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Spring Boot</h3>
+                    <p class="text-xs text-slate-400 mb-4">REST APIs, Dependency Injection, Microservices</p>
+                    <div class="w-full bg-slate-800 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-2 rounded-full w-[78%]"></div>
+                    </div>
+                </div>
+
+                <!-- Skill: Django -->
+                <div class="skill-item glass-card p-6 rounded-2xl glass-card-hover" data-category="frameworks">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-green-500/10 border border-green-500/30 flex items-center justify-center text-green-400 text-2xl">
+                            <i class="fa-solid fa-cubes"></i>
+                        </div>
+                        <span class="text-xs font-mono text-slate-400">Framework</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Django</h3>
+                    <p class="text-xs text-slate-400 mb-4">MVT Architecture, ORM, Admin Panel, REST Framework</p>
+                    <div class="w-full bg-slate-800 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-green-500 to-emerald-400 h-2 rounded-full w-[75%]"></div>
+                    </div>
+                </div>
+
+                <!-- Skill: MySQL -->
+                <div class="skill-item glass-card p-6 rounded-2xl glass-card-hover" data-category="database">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 text-2xl">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+                        <span class="text-xs font-mono text-slate-400">Database</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">MySQL</h3>
+                    <p class="text-xs text-slate-400 mb-4">Relational Schema, Complex Queries, Indexing</p>
+                    <div class="w-full bg-slate-800 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-sky-500 to-blue-500 h-2 rounded-full w-[82%]"></div>
+                    </div>
+                </div>
+
+                <!-- Skill: Android Studio -->
+                <div class="skill-item glass-card p-6 rounded-2xl glass-card-hover" data-category="tools">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl">
+                            <i class="fa-brands fa-android"></i>
+                        </div>
+                        <span class="text-xs font-mono text-slate-400">IDE / Tool</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Android Studio</h3>
+                    <p class="text-xs text-slate-400 mb-4">Mobile UI, XML layouts, Gradle build scripts</p>
+                    <div class="w-full bg-slate-800 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-emerald-400 to-lime-400 h-2 rounded-full w-[80%]"></div>
+                    </div>
+                </div>
+
+                <!-- Skill: IntelliJ IDEA -->
+                <div class="skill-item glass-card p-6 rounded-2xl glass-card-hover" data-category="tools">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 text-2xl">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <span class="text-xs font-mono text-slate-400">IDE / Tool</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">IntelliJ IDEA</h3>
+                    <p class="text-xs text-slate-400 mb-4">Java & Enterprise Spring Development Workflows</p>
+                    <div class="w-full bg-slate-800 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full w-[85%]"></div>
+                    </div>
+                </div>
+
+                <!-- Skill: VS Code -->
+                <div class="skill-item glass-card p-6 rounded-2xl glass-card-hover" data-category="tools">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-2xl">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <span class="text-xs font-mono text-slate-400">IDE / Tool</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">VS Code</h3>
+                    <p class="text-xs text-slate-400 mb-4">Python, Web Tech, Scripting and Extensions</p>
+                    <div class="w-full bg-slate-800 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-cyan-500 to-blue-500 h-2 rounded-full w-[90%]"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-20 px-6 md:px-12 max-w-7xl mx-auto">
+            <div class="flex flex-col items-center text-center mb-16">
+                <span class="text-indigo-400 font-mono text-sm tracking-widest uppercase mb-2">// Career Journey</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white">Internship Experience</h2>
+                <div class="w-16 h-1 bg-indigo-500 rounded-full mt-3"></div>
+            </div>
+
+            <div class="relative border-l-2 border-slate-800 pl-6 md:pl-10 space-y-12 max-w-4xl mx-auto">
+                
+                <!-- Experience Item 1 -->
+                <div class="relative group">
+                    <div class="absolute -left-[31px] md:-left-[47px] top-0 w-6 h-6 rounded-full bg-indigo-600 border-4 border-slate-900 group-hover:scale-125 transition-transform"></div>
+                    
+                    <div class="glass-card p-6 md:p-8 rounded-2xl glass-card-hover">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <h3 class="text-xl font-bold text-white">Android Development Intern</h3>
+                            <span class="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold">8 Weeks</span>
+                        </div>
+                        
+                        <p class="text-slate-300 font-medium text-sm mb-4">
+                            <i class="fa-solid fa-building text-indigo-400 mr-2"></i> Techpile Technology Pvt. Ltd., Lucknow
+                        </p>
+
+                        <ul class="space-y-2.5 text-slate-400 text-sm">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-chevron-right text-indigo-400 text-xs mt-1"></i>
+                                <span>Worked on native Android application development using <strong>Java</strong> and <strong>Android Studio</strong>.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-chevron-right text-indigo-400 text-xs mt-1"></i>
+                                <span>Designed and customized Android UI components, activities, fragments, and responsive layouts.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-chevron-right text-indigo-400 text-xs mt-1"></i>
+                                <span>Gained practical experience with event handling, mobile app lifecycle management, and XML interface design.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience Item 2 -->
+                <div class="relative group">
+                    <div class="absolute -left-[31px] md:-left-[47px] top-0 w-6 h-6 rounded-full bg-cyan-500 border-4 border-slate-900 group-hover:scale-125 transition-transform"></div>
+                    
+                    <div class="glass-card p-6 md:p-8 rounded-2xl glass-card-hover">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <h3 class="text-xl font-bold text-white">Web Development Intern</h3>
+                            <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold">4 Weeks</span>
+                        </div>
+                        
+                        <p class="text-slate-300 font-medium text-sm mb-4">
+                            <i class="fa-solid fa-building text-cyan-400 mr-2"></i> National Intern
+                        </p>
+
+                        <ul class="space-y-2.5 text-slate-400 text-sm">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-chevron-right text-cyan-400 text-xs mt-1"></i>
+                                <span>Utilized modern web technologies to design, structure, and deploy web page components.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-chevron-right text-cyan-400 text-xs mt-1"></i>
+                                <span>Completed backend and frontend tasks, focusing on web UI responsiveness and functionality.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-chevron-right text-cyan-400 text-xs mt-1"></i>
+                                <span>Participated in feature integration and testing cycles.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 px-6 md:px-12 max-w-7xl mx-auto">
+            <div class="flex flex-col items-center text-center mb-16">
+                <span class="text-indigo-400 font-mono text-sm tracking-widest uppercase mb-2">// Featured Work</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white">Projects</h2>
+                <div class="w-16 h-1 bg-indigo-500 rounded-full mt-3"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Project 1 -->
+                <div class="glass-card rounded-2xl overflow-hidden glass-card-hover flex flex-col justify-between">
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-xs font-mono text-indigo-400 px-3 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20">Java / Spring Boot / MySQL</span>
+                            <div class="flex gap-3 text-slate-400">
+                                <a href="#" onclick="openProjectModal('Spring Boot Enterprise Management System', 'Full-stack enterprise application built using Spring Boot REST APIs and MySQL database integration.')" class="hover:text-white transition-colors" title="View details"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            </div>
+                        </div>
+
+                        <h3 class="text-2xl font-bold text-white mb-3 hover:text-indigo-400 transition-colors">Enterprise Data & Service Management System</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            A robust backend service developed using Spring Boot and MySQL. Implements CRUD operations, authorization layers, RESTful endpoints, and efficient database indexing for smooth performance.
+                        </p>
+
+                        <div class="space-y-2 mb-6 text-xs text-slate-400">
+                            <p class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Integrated Spring Data JPA for object-relational mapping.</p>
+                            <p class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Designed normalized MySQL database schema with relationships.</p>
+                            <p class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Implemented REST controller endpoints with validation logic.</p>
+                        </div>
+                    </div>
+
+                    <div class="px-8 py-4 bg-slate-900/60 border-t border-slate-800 flex items-center justify-between">
+                        <div class="flex gap-2">
+                            <span class="text-xs font-mono text-slate-400">#springboot</span>
+                            <span class="text-xs font-mono text-slate-400">#mysql</span>
+                            <span class="text-xs font-mono text-slate-400">#java</span>
+                        </div>
+                        <button onclick="openProjectModal('Spring Boot Enterprise Management System', 'Full-stack enterprise application built using Spring Boot REST APIs and MySQL database integration.')" class="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center gap-1">
+                            Details <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="glass-card rounded-2xl overflow-hidden glass-card-hover flex flex-col justify-between">
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-xs font-mono text-cyan-400 px-3 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20">Python / Django / MySQL</span>
+                            <div class="flex gap-3 text-slate-400">
+                                <a href="#" onclick="openProjectModal('Django Web Portal', 'Scalable web application developed using Django framework, featuring user authentication and dynamic views.')" class="hover:text-white transition-colors" title="View details"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            </div>
+                        </div>
+
+                        <h3 class="text-2xl font-bold text-white mb-3 hover:text-cyan-400 transition-colors">Dynamic Web Platform & Portal</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            An interactive full-stack web application powered by Django. Features secure user authentication, form processing, automated admin workflows, and custom view handlers.
+                        </p>
+
+                        <div class="space-y-2 mb-6 text-xs text-slate-400">
+                            <p class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Django MVT architecture with custom templates.</p>
+                            <p class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Integrated backend database modeling with Django ORM.</p>
+                            <p class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Role-based access control and user session handling.</p>
+                        </div>
+                    </div>
+
+                    <div class="px-8 py-4 bg-slate-900/60 border-t border-slate-800 flex items-center justify-between">
+                        <div class="flex gap-2">
+                            <span class="text-xs font-mono text-slate-400">#django</span>
+                            <span class="text-xs font-mono text-slate-400">#python</span>
+                            <span class="text-xs font-mono text-slate-400">#web</span>
+                        </div>
+                        <button onclick="openProjectModal('Django Web Platform', 'Scalable web application developed using Django framework, featuring user authentication and dynamic views.')" class="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                            Details <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="py-20 px-6 md:px-12 max-w-7xl mx-auto">
+            <div class="flex flex-col items-center text-center mb-16">
+                <span class="text-indigo-400 font-mono text-sm tracking-widest uppercase mb-2">// Qualifications</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white">Education</h2>
+                <div class="w-16 h-1 bg-indigo-500 rounded-full mt-3"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- B.Tech Card -->
+                <div class="glass-card p-6 rounded-2xl glass-card-hover border-t-4 border-indigo-500">
+                    <span class="text-xs font-mono text-indigo-400">2023 -- 2027</span>
+                    <h3 class="text-xl font-bold text-white mt-2 mb-1">B.Tech in Computer Science & Engineering</h3>
+                    <p class="text-sm text-slate-300 mb-4">Institute of Technology and Management, GIDA, Gorakhpur</p>
+                    <div class="pt-4 border-t border-slate-800 flex justify-between items-center">
+                        <span class="text-xs text-slate-400">Academic Score</span>
+                        <span class="text-base font-extrabold text-indigo-400">CGPA: 7.92 / 10</span>
+                    </div>
+                </div>
+
+                <!-- Class XII Card -->
+                <div class="glass-card p-6 rounded-2xl glass-card-hover border-t-4 border-cyan-500">
+                    <span class="text-xs font-mono text-cyan-400">2021</span>
+                    <h3 class="text-xl font-bold text-white mt-2 mb-1">Class XII (Senior Secondary)</h3>
+                    <p class="text-sm text-slate-300 mb-4">B.B.T.S. Inter College</p>
+                    <div class="pt-4 border-t border-slate-800 flex justify-between items-center">
+                        <span class="text-xs text-slate-400">Academic Score</span>
+                        <span class="text-base font-extrabold text-cyan-400">Percentage: 84%</span>
+                    </div>
+                </div>
+
+                <!-- Class X Card -->
+                <div class="glass-card p-6 rounded-2xl glass-card-hover border-t-4 border-emerald-500">
+                    <span class="text-xs font-mono text-emerald-400">2019</span>
+                    <h3 class="text-xl font-bold text-white mt-2 mb-1">Class X (Secondary School)</h3>
+                    <p class="text-sm text-slate-300 mb-4">B.B.T.S. Inter College</p>
+                    <div class="pt-4 border-t border-slate-800 flex justify-between items-center">
+                        <span class="text-xs text-slate-400">Academic Score</span>
+                        <span class="text-base font-extrabold text-emerald-400">Percentage: 85.33%</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 px-6 md:px-12 max-w-7xl mx-auto">
+            <div class="flex flex-col items-center text-center mb-16">
+                <span class="text-indigo-400 font-mono text-sm tracking-widest uppercase mb-2">// Let's Connect</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white">Get In Touch</h2>
+                <div class="w-16 h-1 bg-indigo-500 rounded-full mt-3"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                
+                <!-- Contact info cards -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="glass-card p-6 rounded-2xl flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 text-xl">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-400 block">Email Address</span>
+                            <a href="mailto:priyanshu638875@gmail.com" class="text-white font-semibold hover:text-indigo-400 transition-colors">priyanshu638875@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xl">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-400 block">Phone / WhatsApp</span>
+                            <a href="tel:6388756316" class="text-white font-semibold hover:text-cyan-400 transition-colors">+91 6388756316</a>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xl">
+                            <i class="fa-brands fa-linkedin"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-400 block">LinkedIn Profile</span>
+                            <a href="https://www.linkedin.com/in/anant-singh-780864388/" target="_blank" rel="noopener noreferrer" class="text-white font-semibold hover:text-emerald-400 transition-colors">anant-singh-780864388</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Contact Form -->
+                <div class="lg:col-span-7 glass-card p-8 rounded-2xl">
+                    <form id="contact-form" class="space-y-6" onsubmit="handleFormSubmit(event)">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-300 mb-2">Your Name</label>
+                                <input type="text" required placeholder="John Doe" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white focus:outline-none focus:border-indigo-500 transition-colors text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-300 mb-2">Your Email</label>
+                                <input type="email" required placeholder="john@example.com" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white focus:outline-none focus:border-indigo-500 transition-colors text-sm">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-2">Subject</label>
+                            <input type="text" required placeholder="Project Opportunity / Feedback" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white focus:outline-none focus:border-indigo-500 transition-colors text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-2">Message</label>
+                            <textarea rows="4" required placeholder="Hi Anant, I would like to talk about..." class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white focus:outline-none focus:border-indigo-500 transition-colors text-sm resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" id="submit-btn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white font-semibold transition-all shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+
+                    <!-- Alert message box -->
+                    <div id="form-alert" class="hidden mt-4 p-4 rounded-xl text-sm"></div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 py-8 text-center text-slate-500 text-xs">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>© <span id="year">2026</span> Anant Singh. All rights reserved.</p>
+            <p class="font-mono">Built with HTML, Tailwind CSS & JavaScript</p>
+        </div>
+    </footer>
+
+    <!-- Project Details Modal -->
+    <div id="project-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card max-w-lg w-full p-6 rounded-2xl border border-slate-700 relative animate-fadeIn">
+            <button onclick="closeProjectModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl p-1">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 id="modal-title" class="text-2xl font-bold text-white mb-3">Project Title</h3>
+            <p id="modal-desc" class="text-slate-300 text-sm leading-relaxed mb-6">Project details content...</p>
+            <div class="flex justify-end gap-3">
+                <button onclick="closeProjectModal()" class="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 text-sm hover:bg-slate-700">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set dynamic current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Typewriter Effect
+        const words = ["Spring Boot Services", "Java Backend APIs", "Django Applications", "Android Mobile Apps"];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typewriterEl = document.getElementById('typewriter');
+
+        function type() {
+            const currentWord = words[wordIndex];
+            if (isDeleting) {
+                typewriterEl.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typewriterEl.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                isDeleting = true;
+                setTimeout(type, 1800);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                setTimeout(type, 400);
+            } else {
+                setTimeout(type, isDeleting ? 50 : 100);
+            }
+        }
+        type();
+
+        // Skill Filter Functionality
+        const filterBtns = document.querySelectorAll('.skill-filter-btn');
+        const skillItems = document.querySelectorAll('.skill-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-indigo-600', 'text-white');
+                    b.classList.add('glass-card', 'text-slate-300');
+                });
+                btn.classList.remove('glass-card', 'text-slate-300');
+                btn.classList.add('bg-indigo-600', 'text-white');
+
+                const filter = btn.getAttribute('data-filter');
+
+                skillItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Modal Handler
+        function openProjectModal(title, desc) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-desc').textContent = desc;
+            document.getElementById('project-modal').classList.remove('hidden');
+        }
+
+        function closeProjectModal() {
+            document.getElementById('project-modal').classList.add('hidden');
+        }
+
+        // Contact Form Handling (Simulated submit)
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const alert = document.getElementById('form-alert');
+
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Sending...`;
+
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Send Message`;
+                
+                alert.className = "mt-4 p-4 rounded-xl text-sm bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+                alert.textContent = "Thank you! Your message has been sent successfully. Anant will get back to you shortly.";
+                alert.classList.remove('hidden');
+
+                document.getElementById('contact-form').reset();
+
+                setTimeout(() => {
+                    alert.classList.add('hidden');
+                }, 5000);
+            }, 1200);
+        }
+
+        // Particle Canvas Background
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const particles = [];
+        const particleCount = Math.min(window.innerWidth / 15, 60);
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 1,
+                dx: (Math.random() - 0.5) * 0.5,
+                dy: (Math.random() - 0.5) * 0.5,
+                alpha: Math.random() * 0.5 + 0.2
+            });
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((p, i) => {
+                p.x += p.dx;
+                p.y += p.dy;
+
+                if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(99, 102, 241, ${p.alpha})`;
+                ctx.fill();
+
+                // Draw subtle connecting lines
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(99, 102, 241, ${0.15 * (1 - dist / 120)})`;
+                        ctx.stroke();
+                    }
+                }
+            });
+
+            requestAnimationFrame(animateParticles);
+        }
+
+        window.onload = function() {
+            animateParticles();
+        };
+    </script>
+</body>
+</html>
